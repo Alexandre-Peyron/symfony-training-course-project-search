@@ -84,6 +84,21 @@ class Product
      */
     private $updatedAt;
 
+    /**
+     * @var Type
+     *
+     * @ORM\ManyToOne(targetEntity="Type", inversedBy="products")
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
+     */
+    private $type;
+
+    /**
+     * @var Brand
+     *
+     * @ORM\ManyToOne(targetEntity="Brand", inversedBy="products")
+     * @ORM\JoinColumn(name="brand_id", referencedColumnName="id")
+     */
+    private $brand;
 
     /**
      * Get id
@@ -310,5 +325,52 @@ class Product
     {
         return $this->updatedAt;
     }
-}
 
+    /**
+     * Set type
+     *
+     * @param \AppBundle\Entity\Type $type
+     *
+     * @return Product
+     */
+    public function setType(\AppBundle\Entity\Type $type = null)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return \AppBundle\Entity\Type
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set brand
+     *
+     * @param \AppBundle\Entity\Brand $brand
+     *
+     * @return Product
+     */
+    public function setBrand(\AppBundle\Entity\Brand $brand = null)
+    {
+        $this->brand = $brand;
+
+        return $this;
+    }
+
+    /**
+     * Get brand
+     *
+     * @return \AppBundle\Entity\Brand
+     */
+    public function getBrand()
+    {
+        return $this->brand;
+    }
+}
