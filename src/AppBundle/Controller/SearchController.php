@@ -20,11 +20,9 @@ class SearchController extends Controller
         $formSearch = $this->createForm(ProductSearchType::class);
         $formSearch->handleRequest($request);
 
-        if ($formSearch->isSubmitted() && $formSearch->isValid()) {
-            //TODO
-        }
+        $formData = $request->query->get($formSearch->getName());
 
-        $products = $em->getRepository(Product::class)->findAll();
+        $products = $em->getRepository(Product::class)->filterByAllCriteria($formData);
 
         return $this->render('search/index.html.twig', [
             'products'    => $products,

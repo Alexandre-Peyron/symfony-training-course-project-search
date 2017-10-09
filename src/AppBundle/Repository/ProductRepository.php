@@ -10,4 +10,68 @@ namespace AppBundle\Repository;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    /**
+     * Filter all products by criteria
+     *
+     * @param $criteria
+     * @return array
+     */
+    public function filterByAllCriteria($criteria)
+    {
+        $queryBuilder = $this->createQueryBuilder('p');
+
+        $queryBuilder->where('p.isEnabled = 1');
+
+        if (isset($criteria['search']) && !empty($criteria['search'])) {
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->orX(
+                    $queryBuilder->expr()->like('p.name', ':search'),
+                    $queryBuilder->expr()->like('p.description', ':search'),
+                    $queryBuilder->expr()->like('p.reference', ':search')
+                ))
+                ->setParameter('search', '%' . $criteria['search'] . '%');
+        }
+
+        if (isset($criteria['priceMin']) && !empty($criteria['priceMin'])) {
+            $queryBuilder
+                ->andWhere('p.price > :priceMin')
+                ->setParameter('priceMin', $criteria['priceMin']);
+        }
+
+        if (isset($criteria['priceMax']) && !empty($criteria['priceMax'])) {
+            $queryBuilder
+                ->andWhere('p.price < :priceMax')
+                ->setParameter('priceMax', $criteria['priceMax']);
+        }
+
+        if (isset($criteria['note'])) {
+            $queryBuilder
+                ->andWhere('p.note >= :note')
+                ->setParameter('note', $criteria['note']);
+        }
+
+        if (isset($criteria['isPremium'])) {
+            $queryBuilder->andWhere('p.isPremium = :isPremium')
+                ->setParameter('isPremium', $criteria['isPremium']);
+        }
+
+        if (isset($criteria['type']) && !empty($criteria['type'])) {
+            $queryBuilder
+                ->leftJoin('p.type', 't')
+                ->andWhere('t.id = :typeId')
+                ->setParameter('typeId', $criteria['type']);
+        }
+
+        if (isset($criteria['brand']) && !empty($criteria['brand'])) {
+            $queryBuilder
+                ->leftJoin('p.brand', 'b')
+                ->andWhere('b.id = :brandId')
+                ->setParameter('brandId', $criteria['brand']);
+        }
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+
 }
