@@ -81,6 +81,36 @@
             </div>
             <div class="col-8">
                 <h2>Produits</h2>
+                <ul class="list-group">
+                    {% for product in products %}
+                    <li class="list-group-item list-group-item-action">
+                        <div class="row">
+                            <div class="col-6">
+                                <h4>{{ product.name }}</h4>
+                                <div>
+                                    {% for i in constant('NOTE_MIN', product)..constant('NOTE_MAX', product) %}
+                                        {% if product.note >= i %}
+                                            ★
+                                        {% else %}
+                                            ☆
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <p class="text-right">
+                                    <span class="badge badge-info">{{ product.brand.name }}</span>
+                                    <span class="badge badge-success">{{ product.type.name }}</span>
+                                </p>
+                                <p class="text-right font-weight-bold">{{ product.price }} €</p>
+                            </div>
+                            <div class="col-12">
+                                <p>{{ product.description }}</p>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </div>
