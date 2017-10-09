@@ -86,7 +86,7 @@
                     <li class="list-group-item list-group-item-action">
                         <div class="row">
                             <div class="col-6">
-                                <h4>{{ product.name }}</h4>
+                                <h4>{{ product.name }}{% if product.isPremium == true %} | Envoi rapide ☞{% endif %}</h4>
                                 <div>
                                     {% for i in constant('NOTE_MIN', product)..constant('NOTE_MAX', product) %}
                                         {% if product.note >= i %}
