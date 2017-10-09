@@ -19,7 +19,44 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
      * @param $criteria
      * @return array
      */
-    public function filterByAllCriteria($criteria)
+    public function filterByAllCriteria($criteria, $pager = null)
+    {
+        $queryBuilder = $this->queryFilterByAllCriteria($criteria);
+
+        if(is_array($pager)) {
+            $queryBuilder
+                ->setFirstResult($pager['currentPosition'])
+                ->setMaxResults($pager['nbResultByPage']);
+        }
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
+     * Count filtered products
+     *
+     * @param array $criteria
+     *
+     * @return integer
+     */
+    public function countFilterByAllCriteria($criteria)
+    {
+        $queryBuilder = $this->queryFilterByAllCriteria($criteria);
+
+        return $queryBuilder
+            ->select('COUNT(p.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * Query to filter all products by criteria
+     *
+     * @param array $criteria
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    private function queryFilterByAllCriteria($criteria)
     {
         $queryBuilder = $this->createQueryBuilder('p');
 
@@ -72,7 +109,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
                 ->setParameter('brandId', $criteria[Criteria::BRAND]);
         }
 
-        return $queryBuilder->getQuery()->getResult();
+        return $queryBuilder;
     }
 
 
