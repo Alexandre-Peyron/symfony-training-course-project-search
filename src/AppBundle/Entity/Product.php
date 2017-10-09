@@ -13,6 +13,16 @@ use Doctrine\ORM\Mapping as ORM;
 class Product
 {
     /**
+     * @const int NOTE_MIN
+     */
+    const NOTE_MIN = 1;
+
+    /**
+     * @const int NOTE_MAX
+     */
+    const NOTE_MAX = 5;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
