@@ -79,11 +79,11 @@ class ProductFixtures extends Fixture
             $pSample = new Product();
             $pSample->setReference('#SAMPLE' . $i . $i . $i);
             $pSample->setName('Sample ' . $i);
-            $pSample->setDescription('"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.');
+            $pSample->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.');
             $pSample->setIsEnabled(true);
             $pSample->setIsPremium(false);
             $pSample->setPrice(rand(10, $i * 100));
-            $pSample->setNote(rand(0, 5));
+            $pSample->setNote(rand(Product::NOTE_MIN, Product::NOTE_MAX));
             $pSample->setCreatedAt(new \DateTime('now'));
             $pSample->setUpdatedAt(new \DateTime('now+1'));
             $pSample->setType($this->getReference($types[rand(0, count($types) - 1)]));
