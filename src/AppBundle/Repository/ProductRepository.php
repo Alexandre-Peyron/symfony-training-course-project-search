@@ -37,13 +37,13 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
 
         if (isset($criteria[Criteria::PRICE_MIN]) && !empty($criteria[Criteria::PRICE_MIN])) {
             $queryBuilder
-                ->andWhere('p.price > :priceMin')
+                ->andWhere('p.price >= :priceMin')
                 ->setParameter('priceMin', $criteria[Criteria::PRICE_MIN]);
         }
 
         if (isset($criteria[Criteria::PRICE_MAX]) && !empty($criteria[Criteria::PRICE_MAX])) {
             $queryBuilder
-                ->andWhere('p.price < :priceMax')
+                ->andWhere('p.price <= :priceMax')
                 ->setParameter('priceMax', $criteria[Criteria::PRICE_MAX]);
         }
 
