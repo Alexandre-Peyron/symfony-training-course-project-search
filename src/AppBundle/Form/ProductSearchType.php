@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Enum\ProductSearchCriteria as Criteria;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -19,20 +20,20 @@ class ProductSearchType extends AbstractType
     {
         $builder
             ->setMethod('GET')
-            ->add('search', TextType::class, [
+            ->add(Criteria::SEARCH, TextType::class, [
                 'required' => false
             ])
-            ->add('isPremium', CheckboxType::class, [
+            ->add(Criteria::PREMIUM, CheckboxType::class, [
                 'label'    => 'Livraison rapide',
                 'required' => false
             ])
-            ->add('priceMin', IntegerType::class, [
+            ->add(Criteria::PRICE_MIN, IntegerType::class, [
                 'required' => false
             ])
-            ->add('priceMax', IntegerType::class, [
+            ->add(Criteria::PRICE_MAX, IntegerType::class, [
                 'required' => false
             ])
-            ->add('note', ChoiceType::class, [
+            ->add(Criteria::NOTE, ChoiceType::class, [
                 'label'    => 'Note minimum',
                 'data'     => 1,
                 'choices'  => [
@@ -45,7 +46,7 @@ class ProductSearchType extends AbstractType
                 'expanded' => true,
                 'multiple' => false
             ])
-            ->add('type', EntityType::class, [
+            ->add(Criteria::TYPE, EntityType::class, [
                 'placeholder'  => 'Type de produits',
                 // query choices from this entity
                 'class'        => 'AppBundle:Type',
@@ -53,7 +54,7 @@ class ProductSearchType extends AbstractType
                 'choice_label' => 'name',
                 'required'     => false,
             ])
-            ->add('brand', EntityType::class, [
+            ->add(Criteria::BRAND, EntityType::class, [
                 'placeholder'  => 'Marque',
                 // query choices from this entity
                 'class'        => 'AppBundle:Brand',

@@ -11,7 +11,7 @@
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col-md-12">
-                            {{ form_widget(form_search.search, {"attr": {"class": "form-control", "placeholder": "Recherche"}}) }}
+                            {{ form_widget(form_search.search_string, {"attr": {"class": "form-control", "placeholder": "Recherche"}}) }}
                         </div>
                     </div>
                 </div>
@@ -19,10 +19,10 @@
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col-md-6">
-                            {{ form_widget(form_search.priceMin, {"attr": {"class": "form-control", "placeholder": "Prix min"}}) }}
+                            {{ form_widget(form_search.price_min, {"attr": {"class": "form-control", "placeholder": "Prix min"}}) }}
                         </div>
                         <div class="col-md-6">
-                            {{ form_widget(form_search.priceMax, {"attr": {"class": "form-control", "placeholder": "Prix max"}}) }}
+                            {{ form_widget(form_search.price_max, {"attr": {"class": "form-control", "placeholder": "Prix max"}}) }}
                         </div>
                     </div>
                 </div>
@@ -61,8 +61,8 @@
                     <div class="form-row">
                         <div class="col-md-12">
                             <div class="checkbox">
-                                {{ form_widget(form_search.isPremium) }}
-                                {{ form_label(form_search.isPremium) }}
+                                {{ form_widget(form_search.is_premium) }}
+                                {{ form_label(form_search.is_premium) }}
                             </div>
                         </div>
                     </div>
