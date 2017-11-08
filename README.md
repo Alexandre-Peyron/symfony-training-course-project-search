@@ -1,4 +1,6 @@
-stcp-search
+Symfony - Search
 ===========
 
-A Symfony project created on September 29, 2017, 10:46 am.
+Projet d'exemple Symfony, pour montrer un usage avancé de création de requête SQL avec Doctrine.
+
+Le projet est composé d'une seule page qui permet d'afficher/rechercher/filtrer une liste de produits paginée.
